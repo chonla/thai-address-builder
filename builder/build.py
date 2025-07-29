@@ -51,12 +51,16 @@ def fetch_zip_resource() -> map:
         )
         clean_zip = list(
             map(
-                lambda z: z.replace("\n", "")
-                .replace("<i>", "")
-                .replace("</i>", "")
-                .replace("<br>", "")
-                .replace("<br />", "")
-                .replace("<td></td>", "<td>-</td>"),
+                lambda z: re.sub(r" [^= ]+=\"([^\"]+)\"", 
+                                 "",
+                                    z.replace("\n", "")
+                                    .replace("&nbsp;", "")
+                                    .replace("<i>", "")
+                                    .replace("</i>", "")
+                                    .replace("<br>", "")
+                                    .replace("<br />", "")
+                                    .replace("<td></td>", "<td>-</td>")
+                ),
                 zip_match,
             )
         )
